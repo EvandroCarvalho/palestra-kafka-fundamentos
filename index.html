@@ -4,11 +4,11 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>kafka - fundamentos</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+		<link rel="stylesheet" href="dist/theme/simple.css" id="theme">
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
@@ -16,8 +16,241 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<div style="margin-bottom: 100;">
+						<img src="images/apache-kafka-log.png" alt="logo kafka" height="500px" width="500px">
+					</div>
+				</section>
+				<section>
+					<div>
+						<p style="color:#043dab">Quem é Evandro Junior ?</p>
+						<div style="font-size:30px">
+							<p>Apaixonado por tecnologia, em especial soluções ligadas à desenvolvimento de software.</p>
+							<p>Já trabalhei com Java, nodejs, reactjs, react-native e angular.</p>
+							<p>Entusiata de meetups, simpósio, etc ... (eventos ligados a área de tecnologia)</p>
+							<p>Gosto de ler livros ligados a T.I. e filosofia.</p>
+						</div>
+					</div>
+				</section>
+				<section>
+					<p>Tópicos</p>
+					<ul>
+						<li>Apache Kafka</li>
+						<li>Topics, Partitions e Offsets</li>
+						<li>Replication Factor</li>
+						<li>Producers e Message Key</li>
+						<li>Consumers e Consumer Groups</li>
+						<li>Kafka Broker Discovery</li>
+						<li>Zookeeper</li>
+					</ul>
+				</section>
+				<section>
+					<p>Criado pelo Linkedin</p>
+					<p>OpenSouce - Confluent</p>
+				</section>
+				<section>
+					<p>Plataforma de streaming de eventos</p>
+					<p>Distribuido</p>
+					<p>Resiliente</p>
+					<p>Tolerante a falhas</p>
+					<p>Escalabilidade horizontal</p>
+					<p>Alta performance</p>
+					<p>Baixa latência</p>
+				</section>
+				<section>
+					<p>Casos</p>
+					<div>
+						<img src="images/linkedin_logo_1.jpg" alt="" width="350px" height="200px">
+						<img src="images/netflix-logo.png" alt="" width="300px" height="200px">
+						<img src="images/unnamed.png" alt="" width="300px" height="200px">
+					</div>
+				</section>
+				<section class="fragments">
+					<p class="fragment fade-in">Certo, então vamos entender alguns conceitos ?</p>
+					<img src="images/michel-scott-nooo.gif" alt="" srcset="" width="500px" height="400px">
+				</section>
+				<section>
+					<p class="page-title">Topics</p>
+					<ul>
+						<li>Determinado fluxo de dados</li>
+						<li>Podem ser criados de acordo com a necessidade</li>
+						<li>É identificado por um nome</li>
+						<li>Dividido em partições</li>
+					</ul>
+				</section>
+				<section>
+					<p class="page-title">Partitions</p>
+					<ul>
+						<li>Ordenada</li>
+						<li>Permite paralelizar um tópico</li>
+						<li>Diferentes máquinas</li>
+					</ul>
+				</section>
+				<section>
+					<p class="page-title">Offset</p>
+					<ul>
+						<li>Especifico para cada partição</li>
+						<li>Dados armazenados por um tempo limite</li>
+						<li>Incrementa a cada mensagem que entra</li>
+					</ul>
+				</section>
+				<section>
+					<img src="images/topic-partition-offset.PNG" alt="" width="700px">
+				</section>
+				<section>
+					<p class="page-title">Brokers</p>
+					<ul>
+						<li>Detém os tópicos</li>
+						<li>Multiplos brokers formam um cluster</li>
+						<li>Identificado por um id</li>
+						<li>Contém algum tipo de dados, mas não todos</li>
+					</ul>
+				</section>
+				<section>
+					<img src="images/brokers.PNG" alt="brokers">
+				</section>
+				<section>
+					<p class="page-title">Replication factor</p>
+					<ul>
+						<li>Definido quando o tópico é criado</li>
+						<li>O broker lider</li>
+						<li>Replicas passivas (ISRs)</li>
+					</ul>
+				</section>
+				<section>
+					<img src="images/replication.PNG" alt="">
+				</section>
+				<section>
+					<p class="page-title">Producer</p>
+					<ul>
+						<li>Produz dados para o tópico</li>
+						<li>Sabe automaticamente para qual broker e partition escrever</li>
+						<li>Recupera de falhas</li>
+						<li>Balanceia os dados de acordo com as partitions (caso não envie uma chave)</li>
+					</ul>
+				</section>
+				<section>
+					<img src="images/producer.PNG" alt="" width="900px">
+				</section>
+				<section>
+					<p>O producer pode escolher como receber o acknowledgment </p>
+					<ul>
+						<li>acks=0 -> não espera o ack (é possivel ter perda de dados)</li>
+						<li>acks=1 -> valor default, esperar que o broker lider reconheça o recebimento (perda de dados limitada)</li>
+						<li>acks=all -> líder e replicas retornam o ack (não há perca de dados)</li>
+					</ul>
+				</section>
+				<section>
+					<img src="images/acks.PNG" width="700px" />
+				</section>
+				<section>
+					<p class="page-title">Producer message Key</p>
+					<p>Utilizado quando for necessário que as mensagens sejam ordenadas</p>
+				</section>
+				<section>
+					<p class="page-title">Consumers</p>
+					<p>Ler o dado de um tópico identificado por um nome</p>
+				</section>
+				<section>
+					<p>
+						<ul>
+							<li>Sabe de qual broker deve ler</li>
+							<li>Se recupera automaticamente em caso de falha</li>
+							<li>Lê o dados na ordem em que estão nas partições</li>
+							<li>Não garante ordem de leitura a nivel de partições</li>
+						</ul>
+					</p>
+				</section>
+				<section>
+					<img src="images/consumers.PNG" alt="consumers" srcset="">
+				</section>
+				<section>
+					<p class="page-title">Consumer Groups</p>
+					<p>Conjunto de consumidores que cooperam para consumir dados de um tópico</p>
+					<p>As partições são divididas entre os membros do grupo</p>
+				</section>
+				<section>
+					<ul>
+						<li>GroupCoordinator e ConsumerCoordinator</li>
+						<li>Um dos brokers é o coordenador do grupo</li>
+						<li>Membros deve enviar heartbeat</li>
+					</ul>
+				</section>
+				<section>
+					<img src="images/group-consumers.PNG" alt="grupo de consumidores" srcset="" width="900px">
+				</section>
+				<section>
+					<p class="page-title">Consumers OffSets</p>
+					<ul>
+						<li>O kafka armazena os offSets que um grupo de consumers esta lendo</li>
+						<li>São gravados em um tópico kafka com o nome "__consumer_offets"</li>
+						<li>Consumer deve dar commit quando consumir uma mensagem</li>
+					</ul>
+				</section>
+				<section>
+					<img src="images/commited-offset.PNG" alt="" srcset="">
+				</section>
+				<section>
+					<p>Tudo certo até aqui !?</p>
+					<img src="images/understand.gif" alt="michel scott" srcset="" width="700px" height="400px">
+				</section>
+				<section>
+					<p class="page-title">Delivery Semantics</p>
+					<ul>
+						<li><strong>At most once: </strong>feito commit nos Offsets assim que a mensagem é recebida</li>
+						<li><strong>At least once: </strong>feito commit após o processamento da mensagem</li>
+						<li><strong>Exactly once: </strong>necessita da api de streams do kafka</li>
+					</ul>
+				</section>
+				<section>
+					<p class="page-title">Kafka Broker Discovery</p>
+					<ul>
+						<li>Bootstrap server</li>
+						<li>Conectado ao cluster</li>
+					</ul>
+				</section>
+				<section>
+					<p class="page-title">Zookeeper</p>
+					<ul>
+						<li>Mantem, gerencia os brokers</li>
+						<li>Define o lider para partição</li>
+						<li>Notifica o kafka em caso de mudanças</li>
+						<li>Lider e seguidores</li>
+						<li>Producer e consumers não escrevem para o Zookeeper e sim para o kafka</li>
+						<li>Apenas gerência os metadados do kafka</li>
+						<li>Não armazena mais os offsets do consumidor</li>
+						<li>Cluster de Zookeeper é conectado ao cluster de kafka</li>
+					</ul>
+				</section>
+				<section>
+					<img src="images/zookeeper.PNG" alt="" srcset="">
+				</section>
+				<section>
+					<p class="page-title">Bora pro hands on!?</p>
+					<img src="images/handson.gif" alt="" srcset="" width="700px">
+				</section>
+				<section>
+					<img src="images/thankyou.gif" alt="" width="900px" srcset="">
+				</section>
+				<section>
+					<p style="align-items: center; justify-content: center; display: flex">
+						<img src="images/gmail.png" alt="gmail" height="40" width="40"
+							style="border: none !important; box-shadow: none !important; margin-right: 10px">
+						evandrovjunior@gmail.com
+					</p>
+					<p style="align-items: center; justify-content: center; display: flex">
+						<img src="images/linkedin.png" height="40" width="40"
+							style="border: none !important; box-shadow: none !important; margin-right: 10px">
+						evandrovcj
+					</p>
+					<p style="align-items: center; justify-content: center; display: flex">
+						<img src="images/twitter.png" height="40" width="40"
+							style="border: none !important; box-shadow: none !important; margin-right: 10px">
+						@CarvEvandro
+					</p>
+					<h3 style="color:#043dab">Perguntas?</h3>
+				</section>
+
 			</div>
 		</div>
 
