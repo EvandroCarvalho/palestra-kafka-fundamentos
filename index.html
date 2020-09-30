@@ -89,7 +89,7 @@
 				<section>
 					<p class="page-title">Offset</p>
 					<ul>
-						<li>Especifico para cada partição</li>
+						<li>Específico para cada partição</li>
 						<li>Dados armazenados por um tempo limite</li>
 						<li>Incrementa a cada mensagem que entra</li>
 					</ul>
@@ -101,7 +101,7 @@
 					<p class="page-title">Brokers</p>
 					<ul>
 						<li>Detém os tópicos</li>
-						<li>Multiplos brokers formam um cluster</li>
+						<li>Múltiplos brokers formam um cluster</li>
 						<li>Identificado por um id</li>
 						<li>Contém algum tipo de dados, mas não todos</li>
 					</ul>
@@ -113,8 +113,8 @@
 					<p class="page-title">Replication factor</p>
 					<ul>
 						<li>Definido quando o tópico é criado</li>
-						<li>O broker lider</li>
-						<li>Replicas passivas (ISRs)</li>
+						<li>O broker líder</li>
+						<li>Réplicas passivas (ISRs)</li>
 					</ul>
 				</section>
 				<section>
@@ -135,9 +135,9 @@
 				<section>
 					<p>O producer pode escolher como receber o acknowledgment </p>
 					<ul>
-						<li>acks=0 -> não espera o ack (é possivel ter perda de dados)</li>
-						<li>acks=1 -> valor default, esperar que o broker lider reconheça o recebimento (perda de dados limitada)</li>
-						<li>acks=all -> líder e replicas retornam o ack (não há perca de dados)</li>
+						<li>acks=0 -> não espera o ack (é possível ter perda de dados)</li>
+						<li>acks=1 -> valor default, esperar que o broker líder reconheça o recebimento (perda de dados limitada)</li>
+						<li>acks=all -> líder e réplicas retornam o ack (não há perca de dados)</li>
 					</ul>
 				</section>
 				<section>
@@ -213,9 +213,9 @@
 					<p class="page-title">Zookeeper</p>
 					<ul>
 						<li>Mantem, gerencia os brokers</li>
-						<li>Define o lider para partição</li>
+						<li>Define o líder para partição</li>
 						<li>Notifica o kafka em caso de mudanças</li>
-						<li>Lider e seguidores</li>
+						<li>Líder e seguidores</li>
 						<li>Producer e consumers não escrevem para o Zookeeper e sim para o kafka</li>
 						<li>Apenas gerência os metadados do kafka</li>
 						<li>Não armazena mais os offsets do consumidor</li>
